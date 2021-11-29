@@ -69,5 +69,11 @@ func (s Sudoku) Solve() {
 }
 
 func (s Sudoku) Print() {
-
+	for _, row := range s.board {
+		for _, value := range row {
+			print(value)
+			print(" ")
+		}
+		println()
+	}
 }
