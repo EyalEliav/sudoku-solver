@@ -1,6 +1,7 @@
 package sudoku
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -65,15 +66,28 @@ func (s Sudoku) validateBlock(row int, col int) bool {
 }
 
 func (s Sudoku) Solve() {
-
+	for row := 0; row < s.size; row++ {
+		for col := 0; col < s.size; col++ {
+			if s.board[row][col] == 0 {
+				for i := 1; i <= s.size; i++ {
+					s.board[row][col] = i
+					if s.validateRow(row) && s.validateCol(col) && s.validateBlock(row, col) {
+						s.Solve()
+					}
+					s.board[row][col] = 0
+				}
+				return
+			}
+		}
+	}
 }
 
 func (s Sudoku) Print() {
 	for _, row := range s.board {
 		for _, value := range row {
-			print(value)
-			print(" ")
+			fmt.Print(value)
+			fmt.Print(" ")
 		}
-		println()
+		fmt.Println()
 	}
 }
